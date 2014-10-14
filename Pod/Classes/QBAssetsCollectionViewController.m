@@ -26,6 +26,19 @@
 
 @implementation QBAssetsCollectionViewController
 
+@synthesize imagePickerController = _imagePickerController;
+@synthesize delegate = _delegate;
+@synthesize assetsGroup = _assetsGroup;
+@synthesize filterType = _filterType;
+@synthesize allowsMultipleSelection = _allowsMultipleSelection;
+@synthesize minimumNumberOfSelection = _minimumNumberOfSelection;
+@synthesize maximumNumberOfSelection = _maximumNumberOfSelection;
+@synthesize assets = _assets;
+@synthesize numberOfAssets = _numberOfAssets;
+@synthesize numberOfPhotos = _numberOfPhotos;
+@synthesize numberOfVideos = _numberOfVideos;
+@synthesize disableScrollToBottom = _disableScrollToBottom;
+
 - (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout
 {
     self = [super initWithCollectionViewLayout:layout];
@@ -162,12 +175,11 @@
 
 #pragma mark - Managing Selection
 
-- (void)selectAssetHavingURL:(NSURL *)URL
-{
+- (void)selectAssetHavingURL:(NSURL *)URL {
     for (NSInteger i = 0; i < self.assets.count; i++) {
         ALAsset *asset = self.assets[i];
-        NSURL *assetURL = [asset valueForProperty:ALAssetPropertyAssetURL];
-        
+		NSURL *assetURL = [[asset defaultRepresentation] url];
+		
         if ([assetURL isEqual:URL]) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];

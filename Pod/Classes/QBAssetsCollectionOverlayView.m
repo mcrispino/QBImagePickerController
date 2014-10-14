@@ -20,6 +20,8 @@
 
 @implementation QBAssetsCollectionOverlayView
 
+@synthesize checkmarkView = _checkmarkView;
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

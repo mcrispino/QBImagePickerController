@@ -68,3 +68,5 @@ DerivedData
 #
 # Pods/
 
+
+*.xcworkspacedata

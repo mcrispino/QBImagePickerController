@@ -21,6 +21,11 @@
 
 @implementation QBImagePickerGroupCell
 
+@synthesize assetsGroup = _assetsGroup;
+@synthesize thumbnailView = _thumbnailView;
+@synthesize nameLabel = _nameLabel;
+@synthesize countLabel = _countLabel;
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

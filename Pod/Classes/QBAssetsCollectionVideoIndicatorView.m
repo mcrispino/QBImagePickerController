@@ -11,6 +11,8 @@
 
 @implementation QBAssetsCollectionVideoIndicatorView
 
+@synthesize duration = _duration;
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

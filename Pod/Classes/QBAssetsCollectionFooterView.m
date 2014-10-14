@@ -16,6 +16,8 @@
 
 @implementation QBAssetsCollectionFooterView
 
+@synthesize textLabel = _textLabel;
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

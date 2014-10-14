@@ -42,6 +42,17 @@ ALAssetsFilter * ALAssetsFilterFromQBImagePickerControllerFilterType(QBImagePick
 
 @implementation QBImagePickerController
 
+@synthesize assetsLibrary = _assetsLibrary;
+@synthesize assetsGroups = _assetsGroups;
+@synthesize selectedAssetURLs = _selectedAssetURLs;
+@synthesize delegate = _delegate;
+@synthesize groupTypes = _groupTypes;
+@synthesize filterType = _filterType;
+@synthesize showsCancelButton = _showsCancelButton;
+@synthesize allowsMultipleSelection = _allowsMultipleSelection;
+@synthesize minimumNumberOfSelection = _minimumNumberOfSelection;
+@synthesize maximumNumberOfSelection = _maximumNumberOfSelection;
+
 + (BOOL)isAccessible
 {
     return ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] &&
@@ -185,7 +196,7 @@ ALAssetsFilter * ALAssetsFilterFromQBImagePickerControllerFilterType(QBImagePick
     __block NSUInteger numberOfFinishedTypes = 0;
     
     for (NSNumber *type in types) {
-        __weak typeof(self) weakSelf = self;
+        __weak QBImagePickerController *weakSelf = self;
         
         [self.assetsLibrary enumerateGroupsWithTypes:[type unsignedIntegerValue]
                                           usingBlock:^(ALAssetsGroup *assetsGroup, BOOL *stop) {
@@ -256,7 +267,7 @@ ALAssetsFilter * ALAssetsFilterFromQBImagePickerControllerFilterType(QBImagePick
     __block NSMutableArray *assets = [NSMutableArray array];
     
     for (NSURL *selectedAssetURL in self.selectedAssetURLs) {
-        __weak typeof(self) weakSelf = self;
+        __weak QBImagePickerController *weakSelf = self;
         [self.assetsLibrary assetForURL:selectedAssetURL
                             resultBlock:^(ALAsset *asset) {
                                 // Add asset
@@ -333,7 +344,7 @@ ALAssetsFilter * ALAssetsFilterFromQBImagePickerControllerFilterType(QBImagePick
 {
     if (self.allowsMultipleSelection) {
         // Add asset URL
-        NSURL *assetURL = [asset valueForProperty:ALAssetPropertyAssetURL];
+		NSURL *assetURL = [[asset defaultRepresentation] url];
         [self.selectedAssetURLs addObject:assetURL];
         
         // Validation
@@ -350,7 +361,7 @@ ALAssetsFilter * ALAssetsFilterFromQBImagePickerControllerFilterType(QBImagePick
 {
     if (self.allowsMultipleSelection) {
         // Remove asset URL
-        NSURL *assetURL = [asset valueForProperty:ALAssetPropertyAssetURL];
+        NSURL *assetURL = [[asset defaultRepresentation] url];
         [self.selectedAssetURLs removeObject:assetURL];
         
         // Validation
@@ -358,8 +369,7 @@ ALAssetsFilter * ALAssetsFilterFromQBImagePickerControllerFilterType(QBImagePick
     }
 }
 
-- (void)assetsCollectionViewControllerDidFinishSelection:(QBAssetsCollectionViewController *)assetsCollectionViewController
-{
+- (void)assetsCollectionViewControllerDidFinishSelection:(QBAssetsCollectionViewController *)assetsCollectionViewController {
     [self passSelectedAssetsToDelegate];
 }
 

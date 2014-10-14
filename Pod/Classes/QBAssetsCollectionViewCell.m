@@ -24,6 +24,13 @@
 
 @implementation QBAssetsCollectionViewCell
 
+@synthesize asset = _asset;
+@synthesize showsOverlayViewWhenSelected = _showsOverlayViewWhenSelected;
+@synthesize imageView = _imageView;
+@synthesize overlayView = _overlayView;
+@synthesize videoIndicatorView = _videoIndicatorView;
+@synthesize blankImage = _blankImage;
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

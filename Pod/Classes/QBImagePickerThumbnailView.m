@@ -17,6 +17,10 @@
 
 @implementation QBImagePickerThumbnailView
 
+@synthesize assetsGroup = _assetsGroup;
+@synthesize thumbnailImages = _thumbnailImages;
+@synthesize blankImage = _blankImage;
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
